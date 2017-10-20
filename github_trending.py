@@ -7,27 +7,42 @@ def get_week_ago_date():
     return formated_week_ago_date
 
 def get_trending_repositories(top_size=20):
-    query_url = 'https://api.github.com/search/repositories'
+    repo_query_url = 'https://api.github.com/search/repositories'
     query_parameters = {'q':'created:>{}'.format(get_week_ago_date()),
                         'language': 'python',
                         'sort':'stars',
-                        'order':'desc'}
-                        #'per_page': top_size}
+                        'order':'desc',
+                        'per_page': top_size}
     try:
-        github_responce = requests.get(query_url, params = query_parameters)
+        repo_responce = requests.get(repos_query_url, params = query_parameters)
     except requests.exceptions.ConnectionError:
-        github_responce = None
-    if github_responce is not None:
-        print(github_responce.json().get('items'))
-        print(len(github_responce.json().get('items')))
+        repo_responce = None
+    if repo_responce is not None:
+        return repo_responce.json().get('items')
+        
+def get_open_issues_amount(repo_owner, repo_name):
+    issue_query_url = 'https://api.github.com/repos/{}/{}/issues'
+                                                    .format(repo_owner, repo_name)
+    try:
+        issue_responce = request.get(issue_query_url)
+    except requests.exceptions.ConnectionError:
+        issue_responce = None
+    if issue_responce is not None:
+        return len(issue_responce.json())
 
-get_trending_repositories()
-
-
-#def get_open_issues_amount(repo_owner, repo_name):
-
-#if __name__ == '__main__':
-
-
-#https://api.github.com/search/repositories?q=created:%3E2017-09-20+language:python&sort=stars&order=desc&per_page=20
-
+if __name__ == '__main__':
+    top_repos_data = get_trending_repositories()
+    if top_repos_data:
+        print('Hey! Here are the most popular Python projects for the last week on GitHub.'/n)  
+        for repo_count, repo_data in enumerate(top_repos_data, start = 1):
+            print('''{}.Repository name: {}
+                        Stars count: {}
+                        Description: {}
+                        Issues count: {}
+                        Link: {}'''.format(
+                        repo_count,
+                        repo_data.get('name'),
+                        repo_data.get('stargazers_count'),
+                        repo_data.get('description'),
+                        get_open_issues_amount(repo_data.get('owner').get('login'), repo_data.get('name')),
+                        repo_data.get('html_url')))
