@@ -35,14 +35,13 @@ if __name__ == '__main__':
     if top_repos_data:
         print('Hey! Here are the most popular Python projects for the last week on GitHub.'/n)  
         for repo_count, repo_data in enumerate(top_repos_data, start = 1):
-            print('''{}.Repository name: {}
-                        Stars count: {}
-                        Description: {}
-                        Issues count: {}
-                        Link: {}'''.format(
-                        repo_count,
-                        repo_data.get('name'),
-                        repo_data.get('stargazers_count'),
-                        repo_data.get('description'),
-                        get_open_issues_amount(repo_data.get('owner').get('login'), repo_data.get('name')),
-                        repo_data.get('html_url')))
+            print('''
+{}. Repository name: {}
+    Stars count: {}
+    Description: {}
+    Issues count: {}
+    Link: {}'''.format(repo_count, repo_data.get('name'),
+                       repo_data.get('stargazers_count'),
+                       repo_data.get('description'),
+                       get_open_issues_amount(repo_data.get('owner').get('login'), repo_data.get('name')),
+                       repo_data.get('html_url')))
