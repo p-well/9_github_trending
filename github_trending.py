@@ -15,7 +15,7 @@ def get_trending_repositories(top_size=20):
                         'per_page': top_size}
     try:
         repo_responce = requests.get(repos_query_url, params = query_parameters)
-    except requests.exceptions.ConnectionError:
+    except requests.exceptions.RequestException:
         repo_responce = None
     if repo_responce is not None:
         return repo_responce.json().get('items')
@@ -25,7 +25,7 @@ def get_open_issues_amount(repo_owner, repo_name):
                                                     .format(repo_owner, repo_name)
     try:
         issue_responce = request.get(issue_query_url)
-    except requests.exceptions.ConnectionError:
+    except requests.exceptions.RequestException:
         issue_responce = None
     if issue_responce is not None:
         return len(issue_responce.json())
