@@ -43,7 +43,9 @@ CLI encoding changing may be required for correct script running on Windows plat
     Stars count: 214
     Description: A MXNet implementation of Mask R-CNN
     Issues count: 0
-    Link: https://github.com/TuSimple/mx-maskrcnn ```
+    Link: https://github.com/TuSimple/mx-maskrcnn
+```
+
 
 # Project Goals
 
