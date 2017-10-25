@@ -20,7 +20,7 @@ It is recommended to use virtual environment.
 # Usage
 
 To execute the script use the following command in CLI: ```python github_trending.py```. <br />
-CLI encoding changing may be required for correct script running on Windows platfrom: ```chcp 65001``` for UTF-8 encoding.
+CLI encoding changing may be required for correct script running on Windows platform: ```chcp 65001``` for UTF-8 encoding.
 
 # Example of Script Launch
 
