@@ -13,21 +13,21 @@ def get_trending_repositories(top_size=20):
                         'sort':'stars',
                         'order':'desc',
                         'per_page': top_size}
+    seconds_to_connect_break = 3.05                      
     try:
-        repo_responce = requests.get(repo_query_url, params = query_parameter, timeout = 3.05)
+        repo_response = requests.get(repo_query_url, params = query_parameters, timeout = seconds_to_connect_break)
+        return repo_response.json().get('items')
     except requests.exceptions.RequestException:
-        repo_responce = None
-    if repo_responce is not None:
-        return repo_responce.json().get('items')
+        repo_response = None
         
 def get_open_issues_amount(repo_owner, repo_name):
     issue_query_url = 'https://api.github.com/repos/{}/{}/issues'.format(repo_owner, repo_name)
+    seconds_to_connect_break = 3.05
     try:
-        issue_responce = requests.get(issue_query_url, timeout = 3.05)
+        issue_response = requests.get(issue_query_url, timeout = seconds_to_connect_break)
+        return len(issue_response.json())
     except requests.exceptions.RequestException:
-        issue_responce = None
-    if issue_responce is not None:
-        return len(issue_responce.json())
+        issue_response = None
 
 if __name__ == '__main__':
     top_repos_data = get_trending_repositories()
