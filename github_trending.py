@@ -46,12 +46,12 @@ if __name__ == '__main__':
             owner_login = repo_data.get('owner').get('login')
             owner_name = repo_data.get('name')
             issues_amount = get_open_issues_amount(owner_login, owner_name)
-            print('''
+            print("""
 {}. Repository name: {}
     Stars count: {}
     Description: {}
     Issues amount: {}
-    Link: {}'''.format(repo_count, repo_data.get('name'),
+    Link: {}""".format(repo_count, repo_data.get('name'),
                        repo_data.get('stargazers_count'),
                        repo_data.get('description'),
                        issues_amount,
