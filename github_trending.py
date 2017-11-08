@@ -31,7 +31,7 @@ def get_open_issues_amount(repo_owner, repo_name):
     timeout_seconds = 3.05
     try:
         issue_response = requests.get(issue_query_url,
-                                      tmeout=timeout_seconds)
+                                      timeout=timeout_seconds)
         return len(issue_response.json())
     except requests.exceptions.RequestException:
         issue_response = None
@@ -41,7 +41,7 @@ if __name__ == '__main__':
     top_repos_data = get_trending_repositories()
     if top_repos_data:
         print('\nHere are the most popular Python projects for\
-               the last week on GitHub.\n')
+ the last week on GitHub.\n')
         for repo_count, repo_data in enumerate(top_repos_data, start=1):
             owner_login = repo_data.get('owner').get('login')
             owner_name = repo_data.get('name')
