@@ -15,14 +15,14 @@ def get_trending_repositories(top_size=20):
                         'sort': 'stars',
                         'order': 'desc',
                         'per_page': top_size}
-    timeout_seconds = 3.05
+    timeout_seconds = 3.05  # http://docs.python-requests.org/en/master/user/advanced/#timeouts
     try:
         repo_response = requests.get(repo_query_url,
                                      params=query_parameters,
                                      timeout=timeout_seconds)
         return repo_response.json().get('items')
     except requests.exceptions.RequestException:
-        repo_response = None
+        return None
 
 
 def get_open_issues_amount(repo_owner, repo_name):
@@ -34,17 +34,17 @@ def get_open_issues_amount(repo_owner, repo_name):
                                       timeout=timeout_seconds)
         return len(issue_response.json())
     except requests.exceptions.RequestException:
-        issue_response = None
+        return None
 
 
 if __name__ == '__main__':
-    top_repos_data = get_trending_repositories()
-    if top_repos_data:
+    top_repos = get_trending_repositories()
+    if top_repos:
         print('\nHere are the most popular Python projects for\
  the last week on GitHub.\n')
-        for repo_count, repo_data in enumerate(top_repos_data, start=1):
-            owner_login = repo_data.get('owner').get('login')
-            owner_name = repo_data.get('name')
+        for repo_count, repo_data in enumerate(top_repos, start=1):
+            owner_login = repo_data['owner']['login']
+            owner_name = repo_data['name']
             issues_amount = get_open_issues_amount(owner_login, owner_name)
             print("""
 {}. Repository name: {}
