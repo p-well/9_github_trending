@@ -4,7 +4,7 @@ This is CLI program used for searching for the most popular Python repositories 
 
 Script finds 20 most stargazers counted repositories created during the last week and prints the following infomation: <br/>
 repo name, stars count, repo description, opened issues amount and repo URL. <br/>
-Data is presented in descending order of repo stars.
+Data is represented in descending order of repo stars.
 
 The program is based on GitHub [REST API v3](https://developer.github.com/v3/)
 
