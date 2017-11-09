@@ -20,7 +20,7 @@ def get_trending_repositories(top_size=20):
         repo_response = requests.get(repo_query_url,
                                      params=query_parameters,
                                      timeout=timeout_seconds)
-        return repo_response.json().get('items')
+        return repo_response.json()['items']
     except requests.exceptions.RequestException:
         return None
 
@@ -51,8 +51,8 @@ if __name__ == '__main__':
     Stars count: {}
     Description: {}
     Issues amount: {}
-    Link: {}""".format(repo_count, repo_data.get('name'),
-                       repo_data.get('stargazers_count'),
-                       repo_data.get('description'),
+    Link: {}""".format(repo_count, repo_data['name'],
+                       repo_data['stargazers_count'],
+                       repo_data['description'],
                        issues_amount,
-                       repo_data.get('html_url')))
+                       repo_data['html_url']))
