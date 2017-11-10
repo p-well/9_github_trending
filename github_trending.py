@@ -15,11 +15,9 @@ def get_trending_repositories(top_size=20):
                         'sort': 'stars',
                         'order': 'desc',
                         'per_page': top_size}
-    timeout_seconds = 3.05  # http://docs.python-requests.org/en/master/user/advanced/#timeouts
     try:
         repo_response = requests.get(repo_query_url,
-                                     params=query_parameters,
-                                     timeout=timeout_seconds)
+                                     params=query_parameters)
         return repo_response.json()['items']
     except requests.exceptions.RequestException:
         return None
@@ -28,10 +26,8 @@ def get_trending_repositories(top_size=20):
 def get_open_issues_amount(repo_owner, repo_name):
     issue_query_url = 'https://api.github.com/repos/{}/{}/issues'\
                       .format(repo_owner, repo_name)
-    timeout_seconds = 3.05
     try:
-        issue_response = requests.get(issue_query_url,
-                                      timeout=timeout_seconds)
+        issue_response = requests.get(issue_query_url)
         return len(issue_response.json())
     except requests.exceptions.RequestException:
         return None
